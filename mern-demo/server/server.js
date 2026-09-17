@@ -36,6 +36,13 @@ app.get('/', (req, res) => {
     res.send('Express Server is running on port 5000');
 });
 
+// API test Docker
+app.get('/api/hello', (req, res) => {
+    res.json({
+        message: 'Hello from Docker Backend!'
+    });
+});
+
 // API GET /api/students
 app.get('/api/students', async (req, res) => {
     try {
