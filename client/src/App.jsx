@@ -1,122 +1,155 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [students, setStudents] = useState([]);
+
+  const [studentId, setStudentId] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  const [editingId, setEditingId] = useState(null);
+
+  const loadStudents = () => {
+    fetch("http://localhost:5000/api/students")
+      .then((res) => res.json())
+      .then((data) => setStudents(data))
+      .catch((err) => console.error(err));
+  };
+
+  useEffect(() => {
+    loadStudents();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const studentData = {
+      studentId,
+      name,
+      email,
+    };
+
+    try {
+      if (editingId) {
+        await fetch(
+          `http://localhost:5000/api/students/${editingId}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(studentData),
+          }
+        );
+      } else {
+        await fetch(
+          "http://localhost:5000/api/students",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(studentData),
+          }
+        );
+      }
+
+      setStudentId("");
+      setName("");
+      setEmail("");
+      setEditingId(null);
+
+      loadStudents();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleEdit = (student) => {
+    setStudentId(student.studentId);
+    setName(student.name);
+    setEmail(student.email);
+
+    setEditingId(student._id);
+  };
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Bạn có chắc muốn xóa sinh viên này không?"
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+      await fetch(
+        `http://localhost:5000/api/students/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      loadStudents();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
+    <div>
+      <h1>Danh sách sinh viên</h1>
+
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="MSSV"
+          value={studentId}
+          onChange={(e) => setStudentId(e.target.value)}
+        />
+
+        <input
+          type="text"
+          placeholder="Họ tên"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <button type="submit">
+          {editingId ? "Cập nhật" : "Thêm sinh viên"}
         </button>
-      </section>
+      </form>
 
-      <div className="ticks"></div>
+      <hr />
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      <ul>
+        {students.map((student) => (
+          <li key={student._id}>
+            {student.studentId} - {student.name} - {student.email}
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+            <button
+              onClick={() => handleEdit(student)}
+              style={{ marginLeft: "10px" }}
+            >
+              Sửa
+            </button>
+
+            <button
+              onClick={() => handleDelete(student._id)}
+              style={{ marginLeft: "5px" }}
+            >
+              Xóa
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
-export default App
+export default App;
