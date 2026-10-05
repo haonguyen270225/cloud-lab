@@ -1,8 +1,10 @@
 *.log
 *.tmp
+setting.txt
 bin/
 build/
 *.log
 *.tmp
 __pycache__/
 .env
+
