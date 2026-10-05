@@ -1,4 +1,4 @@
-.counter {
+/* .counter {
   font-size: 16px;
   padding: 5px 10px;
   border-radius: 5px;
@@ -181,4 +181,158 @@
     right: 0;
     border-right-color: var(--border);
   }
+} */
+
+/* ===== Background ===== */
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.55),
+        rgba(0, 0, 0, 0.55)),
+    url("https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1920");
+
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
 }
+
+/* ===== Container ===== */
+.container {
+  width: 90%;
+  margin: auto;
+  padding-top: 30px;
+
+  animation: fadeInUp 1s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Title ===== */
+.title {
+  text-align: center;
+  font-size: 60px;
+  margin-bottom: 30px;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+/* ===== Form ===== */
+.student-form {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.student-form input {
+  width: 220px;
+  padding: 12px;
+
+  border: none;
+  border-radius: 10px;
+
+  font-size: 16px;
+}
+
+.btn-add {
+  background: #2ecc71;
+  color: white;
+
+  border: none;
+  border-radius: 10px;
+
+  padding: 12px 20px;
+  cursor: pointer;
+
+  font-weight: bold;
+
+  transition: 0.3s;
+}
+
+.btn-add:hover {
+  transform: scale(1.05);
+}
+
+/* ===== List ===== */
+.student-list {
+  list-style: none;
+  padding: 0;
+}
+
+.student-item {
+  background: rgba(255, 255, 255, 0.15);
+
+  backdrop-filter: blur(8px);
+
+  border-radius: 12px;
+
+  padding: 15px;
+  margin-bottom: 12px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  transition: 0.3s;
+}
+
+.student-item:hover {
+  transform: translateX(8px);
+}
+
+.student-info {
+  font-size: 20px;
+}
+
+/* ===== Buttons ===== */
+.btn-group {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-edit {
+  background: #f1c40f;
+  color: black;
+
+  border: none;
+  border-radius: 8px;
+
+  padding: 10px 15px;
+
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-delete {
+  background: #e74c3c;
+  color: white;
+
+  border: none;
+  border-radius: 8px;
+
+  padding: 10px 15px;
+
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-edit:hover,
+.btn-delete:hover {
+  opacity: 0.85;
+}
+

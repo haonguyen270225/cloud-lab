@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import "./App.css";
 function App() {
   const [students, setStudents] = useState([]);
 
@@ -95,61 +95,63 @@ function App() {
   };
 
   return (
-    <div>
-      <h1>Danh sách sinh viên</h1>
+  <div className="container">
+    <h1 className="title">🎓 Danh sách sinh viên</h1>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="MSSV"
-          value={studentId}
-          onChange={(e) => setStudentId(e.target.value)}
-        />
+    <form className="student-form" onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="MSSV"
+        value={studentId}
+        onChange={(e) => setStudentId(e.target.value)}
+      />
 
-        <input
-          type="text"
-          placeholder="Họ tên"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+      <input
+        type="text"
+        placeholder="Họ tên"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
 
-        <button type="submit">
-          {editingId ? "Cập nhật" : "Thêm sinh viên"}
-        </button>
-      </form>
+      <button className="btn-add" type="submit">
+        {editingId ? "✏️ Cập nhật" : "➕ Thêm sinh viên"}
+      </button>
+    </form>
 
-      <hr />
-
-      <ul>
-        {students.map((student) => (
-          <li key={student._id}>
+    <ul className="student-list">
+      {students.map((student) => (
+        <li className="student-item" key={student._id}>
+          <span className="student-info">
             {student.studentId} - {student.name} - {student.email}
+          </span>
 
+          <div className="btn-group">
             <button
+              className="btn-edit"
               onClick={() => handleEdit(student)}
-              style={{ marginLeft: "10px" }}
             >
-              Sửa
+              ✏️ Sửa
             </button>
 
             <button
+              className="btn-delete"
               onClick={() => handleDelete(student._id)}
-              style={{ marginLeft: "5px" }}
             >
-              Xóa
+              🗑️ Xóa
             </button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
 }
 
 export default App;
