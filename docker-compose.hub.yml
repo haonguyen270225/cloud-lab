@@ -1,16 +1,14 @@
-version: '3.8'
-
 services:
+
   backend:
     image: haonguyennhat/mern-backend:1.0
     container_name: mern-backend-hub
-    ports:
-      - "5000:5000"
+    network_mode: host
     environment:
-      - MONGODB_URI=mongodb+srv://NhatHao:NhatHao123456@cluster0.g2kl0hr.mongodb.net/test?retryWrites=true&w=majority
+      - MONGODB_URI=mongodb+srv://NhatHao:demohaonhat0023@cluster0.g2kl0hr.mongodb.net/test?retryWrites=true&w=majority
 
   frontend:
-    image: haonguyennhat/mern-frontend:1.0
+    image: haonguyennhat/mern-frontend:2.0
     container_name: mern-frontend-hub
     ports:
       - "5173:5173"
