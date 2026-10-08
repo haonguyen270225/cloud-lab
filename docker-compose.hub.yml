@@ -1,11 +1,29 @@
+# services:
+
+#   backend:
+#     image: haonguyennhat/mern-backend:1.0
+#     container_name: mern-backend-hub
+#     ports:
+#       - "5000:5000"
+#     environment:
+#       - MONGODB_URI=mongodb+srv://NhatHao:demohaonhat0023@cluster0.g2kl0hr.mongodb.net/?appName=Cluster0
+
+#   frontend:
+#     image: haonguyennhat/mern-frontend:2.0
+#     container_name: mern-frontend-hub
+#     ports:
+#       - "5173:5173"
+#     depends_on:
+#       - backend
 services:
 
   backend:
     image: haonguyennhat/mern-backend:1.0
     container_name: mern-backend-hub
-    network_mode: host
+    ports:
+      - "5000:5000"
     environment:
-      - MONGODB_URI=mongodb+srv://NhatHao:demohaonhat0023@cluster0.g2kl0hr.mongodb.net/test?retryWrites=true&w=majority
+      - MONGODB_URI=mongodb+srv://NhatHao:demohaonhat0023@cluster0.g2kl0hr.mongodb.net/?appName=Cluster0
 
   frontend:
     image: haonguyennhat/mern-frontend:2.0
