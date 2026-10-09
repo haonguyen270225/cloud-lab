@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import "./App.css";
-
+import GameHub from "./GameHub";
 const API_URL = `${import.meta.env.VITE_API_URL}/api`;
 
 function App() {
@@ -144,7 +144,7 @@ function App() {
     <main className="app-shell">
       <div className="ambient ambient-one" />
       <div className="ambient ambient-two" />
-
+       <GameHub />
       <div className="dashboard">
         <header className="hero">
           <div className="hero-copy">
