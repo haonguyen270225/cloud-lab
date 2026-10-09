@@ -1,26 +1,23 @@
-// import react from '@vitejs/plugin-react'
-// import { defineConfig } from 'vite'
-
-// // https://vite.dev/config/
-// export default defineConfig({
-//   plugins: [react()],
-// })
-
-import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  plugins: [react()],
+plugins: [react()],
 
-  server: {
-    host: '0.0.0.0',
-    port: 5173,
+server: {
+host: '0.0.0.0',
+port: 4173,
+strictPort: true,
 
-    proxy: {
-      '/api': {
-        target: 'http://backend:5000',
-        changeOrigin: true,
-      },
-    },
+allowedHosts: ['mern-frontend-236115.onrender.com'],
+
+proxy: {
+  '/api': {
+    target: 'https://mern-backend-236115-2026.onrender.com',
+    changeOrigin: true,
+    secure: true,
   },
-})
+},
+
+},
+});

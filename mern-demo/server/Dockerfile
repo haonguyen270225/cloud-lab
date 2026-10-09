@@ -1,14 +1,12 @@
-
 FROM node:20
 
 WORKDIR /app
 
-COPY package*.json ./
-
+COPY package.json package-lock.json ./
 RUN npm install
 
-COPY . .
+COPY server/ ./server/
 
 EXPOSE 5000
 
-CMD ["npm", "start"]
+CMD ["node", "server/server.js"]
