@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import GameHub from "./GameHub";
-const API_URL = `${import.meta.env.VITE_API_URL}/api`;
-
+// const API_URL = `${import.meta.env.VITE_API_URL}/api`;
+const API_URL = "";
 function App() {
   const [students, setStudents] = useState([]);
   const [studentId, setStudentId] = useState("");
@@ -19,7 +19,7 @@ function App() {
     try {
       setError("");
 
-      const response = await fetch(`${API_URL}/students`);
+      const response = await fetch(`${API_URL}/api/students`);
 
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
@@ -66,8 +66,8 @@ function App() {
       setError("");
 
       const url = editingId
-        ? `${API_URL}/students/${editingId}`
-        : `${API_URL}/students`;
+        ? `${API_URL}/api/students/${editingId}`
+        : `${API_URL}/api/students`;
 
       const response = await fetch(url, {
         method: editingId ? "PUT" : "POST",
@@ -125,7 +125,7 @@ function App() {
     try {
       setError("");
 
-      const response = await fetch(`${API_URL}/students/${id}`, {
+      const response = await fetch(`${API_URL}/api/students/${id}`, {
         method: "DELETE",
       });
 
@@ -142,9 +142,10 @@ function App() {
 
   return (
     <main className="app-shell">
+      <div className="app-version">Application Version: v2.0</div>
       <div className="ambient ambient-one" />
       <div className="ambient ambient-two" />
-       <GameHub />
+      <GameHub />
       <div className="dashboard">
         <header className="hero">
           <div className="hero-copy">
@@ -159,8 +160,8 @@ function App() {
             </h1>
 
             <p className="hero-description">
-              Mọi thông tin sinh viên, được quản lý đơn giản và hiệu quả
-              trong một không gian duy nhất.
+              Mọi thông tin sinh viên, được quản lý đơn giản và hiệu quả trong
+              một không gian duy nhất.
             </p>
 
             <div className="hero-tags">
@@ -266,11 +267,7 @@ function App() {
             </label>
 
             <div className="form-actions">
-              <button
-                className="btn-add"
-                type="submit"
-                disabled={saving}
-              >
+              <button className="btn-add" type="submit" disabled={saving}>
                 {saving
                   ? "Đang lưu..."
                   : editingId
@@ -370,12 +367,16 @@ function App() {
         <footer className="dashboard-footer">
           <div className="footer-brand">
             <span className="footer-mark">S.</span>
-            <span>STUDENT SPACE <small>· MANAGEMENT SYSTEM</small></span>
+            <span>
+              STUDENT SPACE <small>· MANAGEMENT SYSTEM</small>
+            </span>
           </div>
 
           <div className="total-counter" aria-live="polite">
             <span className="counter-label">TOTAL STUDENTS</span>
-            <strong>{loading ? "—" : String(students.length).padStart(2, "0")}</strong>
+            <strong>
+              {loading ? "—" : String(students.length).padStart(2, "0")}
+            </strong>
             <span className="counter-spark">✦</span>
           </div>
         </footer>

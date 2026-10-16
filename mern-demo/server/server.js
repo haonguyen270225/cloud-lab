@@ -141,8 +141,17 @@ async function startServer() {
     try {
         await connectDB();
 
+        app.get("/health", (req, res) => {
+          res.status(200).json({
+            status: "UP",
+            timestamp: new Date(),
+            uptime: process.uptime(),
+          });
+        });
+        
         app.listen(PORT, '0.0.0.0', () => {
-            console.log(`Server is listening on port ${PORT}`);
+            // console.log(`Server is listening on port ${PORT}`);
+            console.log("[AUTO-DEPLOY TEST] Backend v2 deployed successfully");
         });
     } catch (err) {
         console.error('Startup failed:', err.message);

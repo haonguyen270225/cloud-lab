@@ -1196,3 +1196,16 @@ input:focus-visible {
     transition-duration: 0.01ms !important;
   }
 }
+
+
+.app-version {
+  display: inline-block;
+  margin: 8px 0;
+  padding: 6px 12px;
+  border: 1px solid #86efac;
+  border-radius: 8px;
+  background-color: #f0fdf4;
+  color: #166534;
+  font-size: 14px;
+  font-weight: 600;
+}
