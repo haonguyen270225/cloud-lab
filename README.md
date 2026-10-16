@@ -3,11 +3,7 @@ Student Name: Nguyen Nhat Hao
 Student ID: 236115
 Class: DH23TIN07
 
-from pathlib import Path
-import shutil
-
-out = Path("/mnt/data")
-readme = r'''<div align="center">
+<div align="center">
 
 # ☁️ CLOUD COMPUTING LABORATORY
 
@@ -444,15 +440,3 @@ Trong tương lai, dự án có thể được phát triển thêm theo các hư
 </div>
 '''
 
-path = out / "README.md"
-path.write_text(readme, encoding="utf-8")
-
-illustration_src = out / "a_clean_colorful_modern_infographic_style_poster.png"
-illustration_dst = out / "cloud-lab-illustration.png"
-if illustration_src.exists():
-    shutil.copy2(illustration_src, illustration_dst)
-
-print(f"Đã tạo: {path}")
-print(f"Kích thước README: {path.stat().st_size:,} bytes")
-if illustration_dst.exists():
-    print(f"Đã chuẩn bị ảnh minh họa: {illustration_dst}")
